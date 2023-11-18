@@ -7,8 +7,8 @@ import (
 )
 
 func main() {
-	log.Println("Starting asynq server...")
-	go asyncserver.StartAsynqServer()
+	log.Printf("Starting %d async server...", asyncserver.Servers)
+	asyncserver.StartAsynqServers()
 
 	log.Println("Starting API server...")
 	server := api.NewServer()

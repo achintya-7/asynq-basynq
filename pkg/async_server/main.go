@@ -8,9 +8,18 @@ import (
 	"github.com/hibiken/asynq"
 )
 
-const redisAddr = "127.0.0.1:6379"
+const (
+	Servers  = 3
+	redisAddr = "127.0.0.1:6379"
+)
 
-func StartAsynqServer() {
+func StartAsynqServers() {
+	for i := 0; i < Servers; i++ {
+		go startAsynqServer()
+	}
+}
+
+func startAsynqServer() {
 	srv := asynq.NewServer(
 		asynq.RedisClientOpt{Addr: redisAddr},
 		asynq.Config{Concurrency: 10},
@@ -21,6 +30,7 @@ func StartAsynqServer() {
 	mux.HandleFunc(tasks.TrainModelTask, handlers.HandleTrainModelTask)
 
 	if err := srv.Run(mux); err != nil {
+		log.Println("Error running async server")
 		log.Fatal(err)
 	}
 }
