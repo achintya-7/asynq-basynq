@@ -3,3 +3,6 @@ redis:
 
 server:
 	go run cmd/app/main.go
+
+test:
+	go test cmd/test/stress_test.go

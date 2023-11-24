@@ -31,6 +31,7 @@ func (s *Server) setup() {
 
 	r.GET("/welcome", s.welcomeHandler)
 	r.POST("/train", s.trainHandler)
+	r.GET("/trained", s.modelTrainedHandler)
 
 	s.router = r
 }

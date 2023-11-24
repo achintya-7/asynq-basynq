@@ -28,6 +28,7 @@ func startAsynqServer() {
 	mux := asynq.NewServeMux()
 	mux.HandleFunc(tasks.WelcomeEmailTask, handlers.HandleWelcomeEmailTask)
 	mux.HandleFunc(tasks.TrainModelTask, handlers.HandleTrainModelTask)
+	mux.HandleFunc(tasks.ModelTrainedEmailTask, handlers.HandleModelTrainedEmailTask)
 
 	if err := srv.Run(mux); err != nil {
 		log.Println("Error running async server")
